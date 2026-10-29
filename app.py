@@ -1,4 +1,5 @@
 
+
 import streamlit as st
 import joblib
 import pandas as pd
@@ -29,10 +30,12 @@ if st.button("Predict machine failure"):
     if features is not None:
         input_data = input_data[features]
 
-    prediction = model.predict(input_data)[0]
+    threshold = saved_data.get("threshold", 0.4)
+    probability = model.predict_proba(input_data)[0, 1]
+    prediction = int(probability >= threshold)
 
     st.write("Prediction:", "Failure detected" if prediction == 1 else "No failure predicted")
 
-    if hasattr(model, "predict_proba"):
-        probability = model.predict_proba(input_data)[0, 1]
-        st.metric("Predicted failure risk", f"{probability:.1%}")
+    st.metric("Predicted failure risk", f"{probability:.1%}")
+    st.caption(f"Decision threshold: {threshold:.0%}")
+
