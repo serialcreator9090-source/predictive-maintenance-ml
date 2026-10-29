@@ -87,3 +87,35 @@ Add the verified final test-set metrics here once they have been confirmed again
 ## Author
 
 Developed as a learning project exploring machine learning and industrial predictive maintenance.
+
+## Model Evaluation
+
+The final Random Forest model was evaluated on a held-out test set of 2,000 samples using a classification threshold of 0.4.
+
+| Metric | Result |
+|---|---:|
+| Test accuracy | 98.4% |
+| Failure precision | 86% |
+| Failure recall | 63% |
+| Failure F1-score | 0.73 |
+| Average precision | 0.7889 |
+
+### Confusion Matrix
+
+| | Predicted: No Failure | Predicted: Failure |
+|---|---:|---:|
+| Actual: No Failure | 1,925 | 7 |
+| Actual: Failure | 25 | 43 |
+
+### Interpretation
+
+- **Accuracy:** 98.4% of all test samples were classified correctly.
+- **Precision:** 86% of predicted failures were actual failures.
+- **Recall:** The model detected 63% of actual failures.
+- **F1-score:** 0.73 summarizes the balance between failure precision and recall.
+- **Average precision:** 0.7889 measures precision-recall performance across classification thresholds.
+
+Although overall accuracy is high, the model missed 25 of the 68 actual failures in the test set. This highlights the importance of evaluating failure detection using recall and other metrics rather than accuracy alone.
+
+These results apply to the synthetic AI4I 2020 benchmark dataset and do not establish performance on real industrial equipment.
+
